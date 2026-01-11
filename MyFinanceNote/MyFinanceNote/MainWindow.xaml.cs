@@ -56,8 +56,10 @@ namespace MyFinanceNote
 
         private async void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
         {
-            await tayras.LoadAsync();
-            Debug.WriteLine(tayras.Tayras[0].Date);
+            if (tayras  != null)
+            {
+                await tayras.LoadAsync();
+            }
         }
     }
 }
