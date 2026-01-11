@@ -17,7 +17,8 @@ namespace MyFinanceNote.ViewModels
     {
         private readonly ChimpanzeeContext _context;
 
-        public Tayra tayra;
+        [ObservableProperty]
+        private Tayra tayra;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
@@ -52,12 +53,12 @@ namespace MyFinanceNote.ViewModels
         public TayraViewModel (ChimpanzeeContext chimpanzeeContext)
         {
             _context = chimpanzeeContext;
-            tayra = new Tayra();
+            this.Tayra = new Tayra();
         }
 
         public void InitializeForExistingValue(Tayra tayra)
         {
-            this.tayra = tayra;
+            this.Tayra = tayra;
             Date = new DateTimeOffset(tayra.Date.Date);
             Time = tayra.Date.TimeOfDay;
             Event1 = tayra.Event;
@@ -69,12 +70,12 @@ namespace MyFinanceNote.ViewModels
         [RelayCommand(CanExecute = nameof(CanSave))]
         public async Task SaveAsync()
         {
-            tayra.Event = Event1;
-            tayra.Icoca = Icoca;
-            tayra.Coop = Coop;
-            tayra.Cash = Cash;
+            this.Tayra.Event = Event1;
+            this.Tayra.Icoca = Icoca;
+            this.Tayra.Coop = Coop;
+            this.Tayra.Cash = Cash;
             DateTime datetime = Date.Date;
-            tayra.Date = datetime.Add(Time);
+            this.Tayra.Date = datetime.Add(Time);
 
             await _context.SaveChangesAsync();
         }
@@ -82,19 +83,19 @@ namespace MyFinanceNote.ViewModels
         private bool CanSave ()
         {
             Debug.WriteLine(Event1);
-            return tayra != null;
+            return this.Tayra != null;
         }
 
         [RelayCommand(CanExecute = nameof(CanDelete))]
         public async Task Delete()
         {
-            _context.Remove(tayra);
+            _context.Remove(this.Tayra);
             await _context.SaveChangesAsync();
         }
 
         private bool CanDelete()
         {
-            return tayra is not null;
+            return this.Tayra is not null;
         }
     }
 }

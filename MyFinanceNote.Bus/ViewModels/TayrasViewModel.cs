@@ -14,7 +14,7 @@ namespace MyFinanceNote.ViewModels
 {
     public partial class TayrasViewModel : ObservableObject
     {
-        private ChimpanzeeContext _context;
+        private readonly ChimpanzeeContext _context;
 
         [ObservableProperty]
         private ObservableCollection<Tayra> tayras;
@@ -28,13 +28,10 @@ namespace MyFinanceNote.ViewModels
         [RelayCommand]
         public async Task LoadAsync()
         {
+            Debug.WriteLine("Loading...");
             await _context.Tayras.LoadAsync();
-            Tayras.Clear();
-            await foreach (var tayra in _context.Tayras.AsAsyncEnumerable())
-            {
-                Tayras.Add(tayra);
-                Debug.WriteLine(tayra.Id);
-            }
+            Debug.WriteLine("Loaded");
+            Tayras = _context.Tayras.Local.ToObservableCollection();
         }
 
         [RelayCommand]
