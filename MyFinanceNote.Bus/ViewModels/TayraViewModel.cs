@@ -15,7 +15,7 @@ namespace MyFinanceNote.ViewModels
 {
     public partial class TayraViewModel : ObservableObject
     {
-        private readonly ChimpanzeeContext _context;
+        private readonly ChimpanzeeContext _context = new();
 
         [ObservableProperty]
         private Tayra tayra;
@@ -50,25 +50,24 @@ namespace MyFinanceNote.ViewModels
         [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
         private decimal coop = 0;
 
-        public TayraViewModel (ChimpanzeeContext chimpanzeeContext)
+        public TayraViewModel ()
         {
-            _context = chimpanzeeContext;
             this.Tayra = new Tayra();
         }
 
-        public void InitializeForExistingValue(Tayra tayra)
+        public void InitializeForExistingValue(int id)
         {
-            this.Tayra = tayra;
-            Date = new DateTimeOffset(tayra.Date.Date);
-            Time = tayra.Date.TimeOfDay;
-            Event1 = tayra.Event;
-            Cash = tayra.Cash;
-            Icoca = tayra.Icoca;
-            Coop = tayra.Coop;
+            this.Tayra = _context.Tayras.Find(id);
+            Date = Tayra.Date.Date;
+            Time = Tayra.Date.TimeOfDay;
+            Event1 = Tayra.Event;
+            Cash = Tayra.Cash;
+            Icoca = Tayra.Icoca;
+            Coop = Tayra.Coop;
         }
 
         [RelayCommand(CanExecute = nameof(CanSave))]
-        public async Task SaveAsync()
+        public void Save()
         {
             this.Tayra.Event = Event1;
             this.Tayra.Icoca = Icoca;
@@ -77,7 +76,7 @@ namespace MyFinanceNote.ViewModels
             DateTime datetime = Date.Date;
             this.Tayra.Date = datetime.Add(Time);
 
-            await _context.SaveChangesAsync();
+            _context.Update(this.Tayra);
         }
 
         private bool CanSave ()

@@ -26,8 +26,6 @@ namespace MyFinanceNote
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        private ChimpanzeeContext context;
-
         private TayrasViewModel? tayras;
 
         private TayraViewModel? tayra;
@@ -36,10 +34,8 @@ namespace MyFinanceNote
         {
             InitializeComponent();
 
-            context = new ChimpanzeeContext();
-
-            tayras = new TayrasViewModel(context);
-            tayra = new TayraViewModel(context);
+            tayras = new TayrasViewModel();
+            tayra = new TayraViewModel();
 
             this.Activated += MainWindow_Activated;
             SuperList.SelectionChanged += SuperList_SelectionChanged;
@@ -49,7 +45,7 @@ namespace MyFinanceNote
         {
             if(SuperList.SelectedItem != null && tayra != null)
             {
-                tayra.InitializeForExistingValue((Tayra)SuperList.SelectedItem);
+                tayra.InitializeForExistingValue(((Tayra)SuperList.SelectedItem).Id);
                 Debug.WriteLine(tayra);
             }
         }
