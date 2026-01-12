@@ -15,6 +15,7 @@ using Windows.Foundation.Collections;
 using MyFinanceNote.Models;
 using MyFinanceNote.ViewModels;
 using System.Diagnostics;
+using CommunityToolkit.WinUI;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -36,6 +37,9 @@ namespace MyFinanceNote
 
             tayras = new TayrasViewModel();
             tayra = new TayraViewModel();
+
+            CollectionViewSource collectionViewSource = (CollectionViewSource)MainGrid.FindResource("TayrasViewSource");
+            collectionViewSource.Source = tayras.Tayras;
 
             this.Activated += MainWindow_Activated;
             SuperList.SelectionChanged += SuperList_SelectionChanged;

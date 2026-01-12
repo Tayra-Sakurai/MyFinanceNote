@@ -12,71 +12,43 @@ namespace MyFinanceNote.ViewModels
     public partial class TayrasViewModel : ObservableObject
     {
         private readonly ChimpanzeeContext _context = new();
-        private readonly DispatcherQueue? _dispatcher;
 
         [ObservableProperty]
         private ObservableCollection<Tayra> tayras;
 
         public TayrasViewModel()
         {
-            // MainWindow のコンストラクタ内で生成される想定のため、
-            // ここで UI スレッドの DispatcherQueue を取得して保持します。
-            _dispatcher = DispatcherQueue.GetForCurrentThread();
             Tayras = new ObservableCollection<Tayra>();
         }
 
         [RelayCommand]
         public async Task LoadAsync()
         {
-            // 1) DB から非同期に全件をローカルリストに取得（非 UI スレッドでも安全）
-            var items = await _context.Tayras.AsNoTracking().ToListAsync().ConfigureAwait(false);
+            // 継続はデフォルトで UI スレッドに戻るようにする（ConfigureAwait(false) を削除）
+            var items = await _context.Tayras.AsNoTracking().ToListAsync();
 
-            // 2) UI スレッドでコレクションを更新
-            if (_dispatcher != null)
+            // UI スレッドで安全にコレクション更新
+            Tayras.Clear();
+            foreach (var t in items)
             {
-                // TryEnqueue で UI スレッドに処理を投げる
-                _dispatcher.TryEnqueue(() =>
-                {
-                    Tayras.Clear();
-                    foreach (var t in items)
-                    {
-                        Tayras.Add(t);
-                    }
-                });
-            }
-            else
-            {
-                // Dispatcher が取れなかったフォールバック（呼び出し元が UI スレッドである場合のみ安全）
-                Tayras.Clear();
-                foreach (var t in items)
-                {
-                    Tayras.Add(t);
-                }
+                Tayras.Add(t);
             }
         }
 
         [RelayCommand]
         public async Task AddAsync()
         {
-            Tayra element = new()
-            {
-                Date = DateTime.Now,
-                Event = string.Empty,
-                Cash = 0,
-                Icoca = 0,
-                Coop = 0,
-            };
+            var element = new Tayra { Date = DateTime.Now, Event = string.Empty };
             _context.Add(element);
-            await _context.SaveChangesAsync().ConfigureAwait(false);
+            await _context.SaveChangesAsync();
 
-            if (_dispatcher != null)
-            {
-                _dispatcher.TryEnqueue(() => Tayras.Add(element));
-            }
-            else
-            {
-                Tayras.Add(element);
-            }
+            Tayras.Add(element); // UI スレッドで呼ばれる想定
+        }
+
+        [RelayCommand]
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

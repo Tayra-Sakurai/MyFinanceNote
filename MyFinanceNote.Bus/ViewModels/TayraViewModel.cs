@@ -18,7 +18,6 @@ namespace MyFinanceNote.ViewModels
         private readonly ChimpanzeeContext _context = new();
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
         [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
         private Tayra tayra;
 
@@ -42,7 +41,16 @@ namespace MyFinanceNote.ViewModels
 
         public TayraViewModel ()
         {
-            this.Tayra = new Tayra();
+            DateTime dateTime = Date.Date;
+            dateTime = dateTime.Add(Time);
+            this.Tayra = new Tayra()
+            {
+                Cash = Cash,
+                Coop = Coop,
+                Date = dateTime,
+                Event = Event1,
+                Icoca = Icoca
+            };
         }
 
         public void InitializeForExistingValue(int id)
@@ -56,7 +64,7 @@ namespace MyFinanceNote.ViewModels
             Coop = Tayra.Coop;
         }
 
-        [RelayCommand(CanExecute = nameof(CanSave))]
+        [RelayCommand]
         public void Save()
         {
             this.Tayra.Event = Event1;
@@ -65,21 +73,12 @@ namespace MyFinanceNote.ViewModels
             this.Tayra.Cash = Cash;
             DateTime datetime = Date.Date;
             this.Tayra.Date = datetime.Add(Time);
-
-            _context.Update(this.Tayra);
-        }
-
-        private bool CanSave ()
-        {
-            Debug.WriteLine(Event1);
-            return this.Tayra != null;
         }
 
         [RelayCommand(CanExecute = nameof(CanDelete))]
         public async Task Delete()
         {
             _context.Remove(this.Tayra);
-            await _context.SaveChangesAsync();
         }
 
         private bool CanDelete()

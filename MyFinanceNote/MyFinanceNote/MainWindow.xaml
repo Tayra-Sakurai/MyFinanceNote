@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:models="using:MyFinanceNote.Models"
+    xmlns:viewmodels="using:MyFinanceNote.ViewModels"
     mc:Ignorable="d"
     Title="MyFinanceNote">
 
@@ -16,7 +17,8 @@
     </Window.SystemBackdrop>
 
     <Grid Background="{ThemeResource LayerFillColorDefaultBrush}"
-          Margin="5,5,5,5">
+          Margin="5,5,5,5"
+          x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -27,6 +29,10 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <CollectionViewSource x:Key="TayrasViewSource"/>
+            <viewmodels:TayraViewModel x:Key="TayraViewSource"/>
+        </Grid.Resources>
         <!--The table-->
         <ListView ItemsSource="{x:Bind tayras.Tayras}"
                   x:Name="SuperList"
@@ -126,23 +132,26 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <DatePicker Date="{x:Bind tayra.Date, Mode=TwoWay}"
                         Header="Date"/>
             <TimePicker SelectedTime="{x:Bind tayra.Time, Mode=TwoWay}"
                         Grid.Row="0" Grid.Column="1"/>
             <TextBox Header="Event" Text="{x:Bind tayra.Event1, Mode=TwoWay}"
-                     Grid.Row="1" Grid.ColumnSpan="5"/>
+                     Grid.Row="1" Grid.ColumnSpan="6"/>
             <TextBox Header="Cash" Text="{x:Bind tayra.Cash, Mode=TwoWay}"
-                     Grid.Row="2" Grid.ColumnSpan="5"/>
+                     Grid.Row="2" Grid.ColumnSpan="6"/>
             <TextBox Header="ICOCA" Text="{x:Bind tayra.Icoca, Mode=TwoWay}"
-                     Grid.Row="3" Grid.ColumnSpan="5"/>
+                     Grid.Row="3" Grid.ColumnSpan="6"/>
             <TextBox Header="CO-OP" Text="{x:Bind tayra.Coop, Mode=TwoWay}"
-                     Grid.Row="4" Grid.ColumnSpan="5"/>
+                     Grid.Row="4" Grid.ColumnSpan="6"/>
             <Button Content="Save" Command="{x:Bind tayra.SaveCommand}"
                     Grid.Row="5" Grid.Column="3"/>
             <Button Content="delete" Command="{x:Bind tayra.DeleteCommand}"
                     Grid.Row="5" Grid.Column="4"/>
+            <Button Content="Save Changes to the Database." Command="{x:Bind tayras.SaveChangesCommand}"
+                    Grid.Row="5" Grid.Column="5"/>
         </Grid>
     </Grid>
 </Window>
