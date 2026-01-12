@@ -26,9 +26,9 @@ namespace MyFinanceNote
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        private TayrasViewModel? tayras;
+        private TayrasViewModel tayras;
 
-        private TayraViewModel? tayra;
+        private TayraViewModel tayra;
 
         public MainWindow()
         {

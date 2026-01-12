@@ -1,36 +1,57 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.EntityFrameworkCore;
-using MyFinanceNote.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.UI.Dispatching;
+using MyFinanceNote.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
 
 namespace MyFinanceNote.ViewModels
 {
     public partial class TayrasViewModel : ObservableObject
     {
         private readonly ChimpanzeeContext _context = new();
+        private readonly DispatcherQueue? _dispatcher;
 
         [ObservableProperty]
         private ObservableCollection<Tayra> tayras;
 
         public TayrasViewModel()
         {
+            // MainWindow のコンストラクタ内で生成される想定のため、
+            // ここで UI スレッドの DispatcherQueue を取得して保持します。
+            _dispatcher = DispatcherQueue.GetForCurrentThread();
             Tayras = new ObservableCollection<Tayra>();
         }
 
         [RelayCommand]
         public async Task LoadAsync()
         {
-            Tayras.Clear();
-            await foreach (var tayra in _context.Tayras.AsAsyncEnumerable())
+            // 1) DB から非同期に全件をローカルリストに取得（非 UI スレッドでも安全）
+            var items = await _context.Tayras.AsNoTracking().ToListAsync().ConfigureAwait(false);
+
+            // 2) UI スレッドでコレクションを更新
+            if (_dispatcher != null)
             {
-                Tayras.Add(tayra);
+                // TryEnqueue で UI スレッドに処理を投げる
+                _dispatcher.TryEnqueue(() =>
+                {
+                    Tayras.Clear();
+                    foreach (var t in items)
+                    {
+                        Tayras.Add(t);
+                    }
+                });
+            }
+            else
+            {
+                // Dispatcher が取れなかったフォールバック（呼び出し元が UI スレッドである場合のみ安全）
+                Tayras.Clear();
+                foreach (var t in items)
+                {
+                    Tayras.Add(t);
+                }
             }
         }
 
@@ -46,8 +67,16 @@ namespace MyFinanceNote.ViewModels
                 Coop = 0,
             };
             _context.Add(element);
-            await _context.SaveChangesAsync();
-            Tayras.Add(element);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+
+            if (_dispatcher != null)
+            {
+                _dispatcher.TryEnqueue(() => Tayras.Add(element));
+            }
+            else
+            {
+                Tayras.Add(element);
+            }
         }
     }
 }
