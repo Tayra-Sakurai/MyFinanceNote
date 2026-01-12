@@ -8,24 +8,37 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MyFinanceNote.Models;
 
-public partial class Tayra
+public partial class Tayra : IComparable<Tayra>
 {
     [Key]
     public int Id { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime Date { get; set; }
+    public DateTime Date { get; set; } = DateTime.Now;
 
     [Required]
     [Column(TypeName = "ntext")]
-    public string Event { get; set; }
+    public string Event { get; set; } = string.Empty;
 
-    [Column(TypeName = "money")]
-    public decimal Cash { get; set; }
+    [Column("Cash")]
+    public decimal Cash { get; set; } = 0;
 
-    [Column(TypeName = "money")]
-    public decimal Icoca { get; set; }
+    [Column("Icoca")]
+    public decimal Icoca { get; set; } = decimal.Zero;
 
-    [Column(TypeName = "money")]
-    public decimal Coop { get; set; }
+    [Column("Coop")]
+    public decimal Coop { get; set; } = decimal.Zero;
+
+    public int CompareTo(Tayra other)
+    {
+        if (this == other) return 0;
+        if (other == null) return 1;
+        if (this.Date  < other.Date) return -1;
+        if (this.Date > other.Date) return 1;
+        if (this.Date == other.Date)
+        {
+            return Id.CompareTo(other.Id);
+        }
+        return 0;
+    }
 }

@@ -53,9 +53,9 @@ namespace MyFinanceNote.ViewModels
             };
         }
 
-        public void InitializeForExistingValue(int id)
+        public void InitializeForExistingValue(Tayra tayra)
         {
-            this.Tayra = _context.Tayras.Find(id);
+            this.Tayra = tayra;
             Date = Tayra.Date.Date;
             Time = Tayra.Date.TimeOfDay;
             Event1 = Tayra.Event;

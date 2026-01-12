@@ -44,7 +44,7 @@
                   ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -93,7 +93,7 @@
                           ColumnSpacing="16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>

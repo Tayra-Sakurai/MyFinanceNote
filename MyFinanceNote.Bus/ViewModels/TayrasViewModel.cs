@@ -24,12 +24,9 @@ namespace MyFinanceNote.ViewModels
         [RelayCommand]
         public async Task LoadAsync()
         {
-            // 継続はデフォルトで UI スレッドに戻るようにする（ConfigureAwait(false) を削除）
-            var items = await _context.Tayras.AsNoTracking().ToListAsync();
-
-            // UI スレッドで安全にコレクション更新
             Tayras.Clear();
-            foreach (var t in items)
+            // The items of the table.
+            await foreach (var t in _context.Tayras.AsAsyncEnumerable())
             {
                 Tayras.Add(t);
             }

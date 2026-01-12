@@ -49,7 +49,7 @@ namespace MyFinanceNote
         {
             if(SuperList.SelectedItem != null && tayra != null)
             {
-                tayra.InitializeForExistingValue(((Tayra)SuperList.SelectedItem).Id);
+                tayra.InitializeForExistingValue((Tayra)SuperList.SelectedItem);
                 Debug.WriteLine(tayra);
             }
         }
