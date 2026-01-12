@@ -26,16 +26,13 @@ namespace MyFinanceNote
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        private TayrasViewModel tayras;
+        private TayrasViewModel tayras = new();
 
-        private TayraViewModel tayra;
+        private TayraViewModel tayra = new();
 
         public MainWindow()
         {
             InitializeComponent();
-
-            tayras = new TayrasViewModel();
-            tayra = new TayraViewModel();
 
             this.Activated += MainWindow_Activated;
             SuperList.SelectionChanged += SuperList_SelectionChanged;

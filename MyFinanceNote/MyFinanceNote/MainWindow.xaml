@@ -34,7 +34,25 @@
                   SelectionMode="Single"
                   IsItemClickEnabled="False">
             <ListView.Header>
-                <controls:DataTable>
+                <Grid Padding="16,12"
+                  ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Id" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="1" Foreground="{StaticResource TextFillColorSecondaryBrush}">Date</TextBlock>
+                <TextBlock Grid.Column="2" Text="Event" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="3" Text="Cash" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="4" Text="ICOCA" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="5" Text="COOP e-Money" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+            </Grid>
+            <!--This is for future design-->
+            <!--<controls:DataTable>
                     <controls:DataColumn Content="Id"
                                          DesiredWidth="*"/>
                     <controls:DataColumn Content="Date"
@@ -47,11 +65,11 @@
                                          DesiredWidth="2*"/>
                     <controls:DataColumn Content="CO-OP e-Money"
                                          DesiredWidth="2*"/>
-                </controls:DataTable>
+                </controls:DataTable>-->
             </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Tayra">
-                    <controls:DataRow>
+                    <!--<controls:DataRow>
                         <TextBlock VerticalAlignment="Center"
                                    Text="{x:Bind Id}"/>
                         <TextBlock VerticalAlignment="Center"
@@ -64,7 +82,24 @@
                                    Text="{x:Bind Icoca}"/>
                         <TextBlock VerticalAlignment="Center"
                                    Text="{x:Bind Coop}"/>
-                    </controls:DataRow>
+                    </controls:DataRow>-->
+                    <Grid Padding="16,12"
+                          ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Id}"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind Date}"/>
+                        <TextBlock Grid.Column="2" Text="{x:Bind Event}"/>
+                        <TextBlock Grid.Column="3" Text="{x:Bind Cash}"/>
+                        <TextBlock Grid.Column="4" Text="{x:Bind Icoca}"/>
+                        <TextBlock Grid.Column="5" Text="{x:Bind Coop}"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
             <ListView.ItemContainerStyle>
