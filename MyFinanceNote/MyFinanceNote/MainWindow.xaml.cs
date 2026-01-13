@@ -27,6 +27,8 @@ namespace MyFinanceNote
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private ChimpanzeeContext context = new();
+
         private TayrasViewModel tayras;
 
         private TayraViewModel tayra;

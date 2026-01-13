@@ -20,13 +20,13 @@ public partial class Tayra : IComparable<Tayra>
     [Column(TypeName = "ntext")]
     public string Event { get; set; } = string.Empty;
 
-    [Column("Cash")]
+    [Column(TypeName = "decimal(18,0)")]
     public decimal Cash { get; set; } = 0;
 
-    [Column("Icoca")]
+    [Column(TypeName = "decimal(18,0)")]
     public decimal Icoca { get; set; } = decimal.Zero;
 
-    [Column("Coop")]
+    [Column(TypeName = "decimal(18,0)")]
     public decimal Coop { get; set; } = decimal.Zero;
 
     public int CompareTo(Tayra other)
