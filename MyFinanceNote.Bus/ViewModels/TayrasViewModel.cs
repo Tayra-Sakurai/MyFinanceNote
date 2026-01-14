@@ -16,6 +16,15 @@ namespace MyFinanceNote.ViewModels
         [ObservableProperty]
         private ObservableCollection<Tayra> tayras;
 
+        [ObservableProperty]
+        private double cashTotal = 0;
+
+        [ObservableProperty]
+        private double icocaTotal = 0;
+
+        [ObservableProperty]
+        private double coopTotal = 0;
+
         public TayrasViewModel()
         {
             Tayras = new ObservableCollection<Tayra>();
@@ -25,10 +34,16 @@ namespace MyFinanceNote.ViewModels
         public async Task LoadAsync()
         {
             Tayras.Clear();
+            CashTotal = 0;
+            IcocaTotal = 0;
+            CoopTotal = 0;
             // The items of the table.
             await foreach (var t in _context.Tayras.AsAsyncEnumerable())
             {
                 Tayras.Add(t);
+                CashTotal += (double)t.Cash;
+                IcocaTotal += (double)t.Icoca;
+                CoopTotal += (double)t.Coop;
             }
         }
 

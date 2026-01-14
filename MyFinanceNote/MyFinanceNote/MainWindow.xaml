@@ -23,6 +23,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -30,7 +33,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <!--The table-->
-        <ListView ItemsSource="{x:Bind tayras.Tayras}"
+        <ListView ItemsSource="{x:Bind tayras.Tayras, Mode=OneWay}"
                   x:Name="SuperList"
                   Grid.ColumnSpan="3"
                   SelectionMode="Single"
@@ -149,5 +152,14 @@
             <Button Content="Save Changes to the Database." Command="{x:Bind tayras.SaveChangesCommand}"
                     Grid.Row="5" Grid.Column="5"/>
         </Grid>
+        <NumberBox Grid.ColumnSpan="3" Grid.Row="3"
+                   Value="{x:Bind tayras.CashTotal, Mode=OneWay}"
+                   Header="Cash"/>
+        <NumberBox Grid.ColumnSpan="3" Grid.Row="4"
+                   Value="{x:Bind tayras.IcocaTotal, Mode=OneWay}"
+                   Header="ICOCA"/>
+        <NumberBox Grid.ColumnSpan="3" Grid.Row="5"
+                   Value="{x:Bind tayras.CoopTotal, Mode=OneWay}"
+                   Header="CO-OP e-Money"/>
     </Grid>
 </Window>
