@@ -40,9 +40,6 @@ namespace MyFinanceNote
             tayras = new TayrasViewModel();
             tayra = new TayraViewModel();
 
-            CollectionViewSource collectionViewSource = (CollectionViewSource)MainGrid.FindResource("TayrasViewSource");
-            collectionViewSource.Source = tayras.Tayras;
-
             this.Activated += MainWindow_Activated;
             SuperList.SelectionChanged += SuperList_SelectionChanged;
         }

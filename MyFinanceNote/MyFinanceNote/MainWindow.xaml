@@ -29,10 +29,6 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Grid.Resources>
-            <CollectionViewSource x:Key="TayrasViewSource"/>
-            <viewmodels:TayraViewModel x:Key="TayraViewSource"/>
-        </Grid.Resources>
         <!--The table-->
         <ListView ItemsSource="{x:Bind tayras.Tayras}"
                   x:Name="SuperList"
@@ -93,7 +89,7 @@
                           ColumnSpacing="16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="144"/>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -140,12 +136,12 @@
                         Grid.Row="0" Grid.Column="1"/>
             <TextBox Header="Event" Text="{x:Bind tayra.Event1, Mode=TwoWay}"
                      Grid.Row="1" Grid.ColumnSpan="6"/>
-            <TextBox Header="Cash" Text="{x:Bind tayra.Cash, Mode=TwoWay}"
-                     Grid.Row="2" Grid.ColumnSpan="6"/>
-            <TextBox Header="ICOCA" Text="{x:Bind tayra.Icoca, Mode=TwoWay}"
-                     Grid.Row="3" Grid.ColumnSpan="6"/>
-            <TextBox Header="CO-OP" Text="{x:Bind tayra.Coop, Mode=TwoWay}"
-                     Grid.Row="4" Grid.ColumnSpan="6"/>
+            <NumberBox Header="Cash" Value="{x:Bind tayra.Cash, Mode=TwoWay}"
+                       Grid.Row="2" Grid.ColumnSpan="6"/>
+            <NumberBox Header="ICOCA" Value="{x:Bind tayra.Icoca, Mode=TwoWay}"
+                       Grid.Row="3" Grid.ColumnSpan="6"/>
+            <NumberBox Header="CO-OP" Value="{x:Bind tayra.Coop, Mode=TwoWay}"
+                       Grid.Row="4" Grid.ColumnSpan="6"/>
             <Button Content="Save" Command="{x:Bind tayra.SaveCommand}"
                     Grid.Row="5" Grid.Column="3"/>
             <Button Content="delete" Command="{x:Bind tayra.DeleteCommand}"

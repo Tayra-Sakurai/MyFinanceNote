@@ -30,13 +30,13 @@ namespace MyFinanceNote.ViewModels
         private string event1 = string.Empty;
 
         [ObservableProperty]
-        private decimal cash = 0;
+        private double cash = 0;
 
         [ObservableProperty]
-        private decimal icoca = 0;
+        private double icoca = 0;
 
         [ObservableProperty]
-        private decimal coop = 0;
+        private double coop = 0;
 
         public TayraViewModel ()
         {
@@ -44,11 +44,11 @@ namespace MyFinanceNote.ViewModels
             dateTime = dateTime.Add(Time);
             tayra = new Tayra()
             {
-                Cash = Cash,
-                Coop = Coop,
+                Cash = (decimal)Cash,
+                Coop = (decimal)Coop,
                 Date = dateTime,
                 Event = Event1,
-                Icoca = Icoca
+                Icoca = (decimal)Icoca
             };
         }
 
@@ -58,22 +58,20 @@ namespace MyFinanceNote.ViewModels
             Date = this.tayra.Date.Date;
             Time = this.tayra.Date.TimeOfDay;
             Event1 = this.tayra.Event;
-            Cash = this.tayra.Cash;
-            Icoca = this.tayra.Icoca;
-            Coop = this.tayra.Coop;
+            Cash = (double)this.tayra.Cash;
+            Icoca = (double)this.tayra.Icoca;
+            Coop = (double)this.tayra.Coop;
         }
 
         [RelayCommand]
         public void Save()
         {
             tayra.Event = Event1;
-            tayra.Icoca = Icoca;
-            tayra.Coop = Coop;
-            tayra.Cash = Cash;
+            tayra.Icoca = (decimal)Icoca;
+            tayra.Coop = (decimal)Coop;
+            tayra.Cash = (decimal)Cash;
             DateTime datetime = Date.Date;
             tayra.Date = datetime.Add(Time);
-            _chimpanzeeContext.Update(tayra);
-            _chimpanzeeContext.SaveChanges();
         }
 
         [RelayCommand]
