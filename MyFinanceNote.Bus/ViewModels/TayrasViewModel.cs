@@ -6,6 +6,7 @@ using MyFinanceNote.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.Generic;
 
 namespace MyFinanceNote.ViewModels
 {
@@ -38,12 +39,14 @@ namespace MyFinanceNote.ViewModels
             IcocaTotal = 0;
             CoopTotal = 0;
             // The items of the table.
-            await foreach (var t in _context.Tayras.AsAsyncEnumerable())
+            List<Tayra> tayrasList = await _context.Tayras.ToListAsync();
+            tayrasList.Sort();
+            foreach (Tayra tayra in tayrasList)
             {
-                Tayras.Add(t);
-                CashTotal += (double)t.Cash;
-                IcocaTotal += (double)t.Icoca;
-                CoopTotal += (double)t.Coop;
+                Tayras.Add(tayra);
+                CashTotal += (double)tayra.Cash;
+                CoopTotal += (double)tayra.Coop;
+                IcocaTotal += (double)tayra.Icoca;
             }
         }
 
