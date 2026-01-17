@@ -32,6 +32,32 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="10"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontFamily" Value="Verdana"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="NumberBox">
+                <Setter Property="FontFamily" Value="Verdana"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="DatePicker">
+                <Setter Property="FontFamily" Value="Verdana"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="TimePicker">
+                <Setter Property="FontFamily" Value="Verdana"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Verdana"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+        </Grid.Resources>
         <!--The table-->
         <ListView ItemsSource="{x:Bind tayras.Tayras, Mode=OneWay}"
                   x:Name="SuperList"
@@ -136,7 +162,8 @@
             <DatePicker Date="{x:Bind tayra.Date, Mode=TwoWay}"
                         Header="Date"/>
             <TimePicker SelectedTime="{x:Bind tayra.Time, Mode=TwoWay}"
-                        Grid.Row="0" Grid.Column="1"/>
+                        Grid.Row="0" Grid.Column="1"
+                        Header="Time"/>
             <TextBox Header="Event" Text="{x:Bind tayra.Event1, Mode=TwoWay}"
                      Grid.Row="1" Grid.ColumnSpan="6"/>
             <NumberBox Header="Cash" Value="{x:Bind tayra.Cash, Mode=TwoWay}"
