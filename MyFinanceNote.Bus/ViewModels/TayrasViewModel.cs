@@ -29,6 +29,34 @@ namespace MyFinanceNote.ViewModels
         public TayrasViewModel()
         {
             Tayras = new ObservableCollection<Tayra>();
+            _context.SavedChanges += _context_SavedChanges;
+        }
+
+        /// <summary>
+        /// Update the list as the changes are saved.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender of the event. Must be <see cref="_context"/>.
+        /// </param>
+        /// <param name="e">
+        /// The event arguments.
+        /// </param>
+        private async void _context_SavedChanges(object sender, SavedChangesEventArgs e)
+        {
+            // Update the property.
+            Tayras.Clear();
+            IcocaTotal = 0;
+            CashTotal = 0;
+            CoopTotal = 0;
+            List<Tayra> tayrasList = await _context.Tayras.ToListAsync();
+            tayrasList.Sort();
+            foreach (var tayra in tayrasList)
+            {
+                Tayras.Add(tayra);
+                CashTotal += (double)tayra.Cash;
+                IcocaTotal += (double)tayra.Icoca;
+                CoopTotal += (double)tayra.Coop;
+            }
         }
 
         [RelayCommand]
