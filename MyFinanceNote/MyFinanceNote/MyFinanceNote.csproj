@@ -11,6 +11,9 @@
     <WinUISDKReferences>false</WinUISDKReferences>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
@@ -36,5 +39,13 @@
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <Copyright>© 2026 Tayra Sakurai</Copyright>
+    <RepositoryUrl>https://github.com/Tayra-Sakurai/MyFinancenote</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>ja-JP</NeutralLanguage>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 </Project>
