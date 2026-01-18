@@ -34,27 +34,21 @@
         </Grid.ColumnDefinitions>
         <Grid.Resources>
             <Style TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="Arial"/>
                 <Setter Property="FontSize" Value="10"/>
             </Style>
             <Style TargetType="TextBox">
-                <Setter Property="FontFamily" Value="Verdana"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
             <Style TargetType="NumberBox">
-                <Setter Property="FontFamily" Value="Verdana"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
             <Style TargetType="DatePicker">
-                <Setter Property="FontFamily" Value="Verdana"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
             <Style TargetType="TimePicker">
-                <Setter Property="FontFamily" Value="Verdana"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
             <Style TargetType="Button">
-                <Setter Property="FontFamily" Value="Verdana"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
         </Grid.Resources>
@@ -69,18 +63,18 @@
                   ColumnSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="144"/>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Id" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                <TextBlock Grid.Column="1" Foreground="{StaticResource TextFillColorSecondaryBrush}">Date</TextBlock>
-                <TextBlock Grid.Column="2" Text="Event" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                <TextBlock Grid.Column="3" Text="Cash" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                <TextBlock Grid.Column="4" Text="ICOCA" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                <TextBlock Grid.Column="5" Text="COOP e-Money" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock x:Uid="Id" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="1" x:Uid="DateColumn" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="2" x:Uid="EventColumn" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="3" x:Uid="CashColumn" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="4" x:Uid="ICOCAColumn" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                <TextBlock Grid.Column="5" x:Uid="COOPColumn" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
             </Grid>
             <!--This is for future design-->
             <!--<controls:DataTable>
@@ -140,8 +134,8 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <Button Grid.Row="1" Grid.Column="1" Content="Add Item" Command="{x:Bind tayras.AddCommand}"/>
-        <Button Grid.Row="1" Grid.Column="2" Content="Load Data" Command="{x:Bind tayras.LoadCommand}"/>
+        <AppBarButton Grid.Row="1" Grid.Column="1" Icon="Add" x:Uid="AddCmdBtn" Command="{x:Bind tayras.AddCommand}"/>
+        <AppBarButton Grid.Row="1" Grid.Column="2" Icon="Sync"  x:Uid="LoadCmdBtn" Command="{x:Bind tayras.LoadCommand}"/>
         <Grid Grid.Row="2" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -160,33 +154,33 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <DatePicker Date="{x:Bind tayra.Date, Mode=TwoWay}"
-                        Header="Date"/>
+                        x:Uid="DateInput"/>
             <TimePicker SelectedTime="{x:Bind tayra.Time, Mode=TwoWay}"
                         Grid.Row="0" Grid.Column="1"
-                        Header="Time"/>
-            <TextBox Header="Event" Text="{x:Bind tayra.Event1, Mode=TwoWay}"
+                        x:Uid="TimeInput"/>
+            <TextBox x:Uid="Event" Text="{x:Bind tayra.Event1, Mode=TwoWay}"
                      Grid.Row="1" Grid.ColumnSpan="6"/>
-            <NumberBox Header="Cash" Value="{x:Bind tayra.Cash, Mode=TwoWay}"
+            <NumberBox x:Uid="Cash" Value="{x:Bind tayra.Cash, Mode=TwoWay}"
                        Grid.Row="2" Grid.ColumnSpan="6"/>
-            <NumberBox Header="ICOCA" Value="{x:Bind tayra.Icoca, Mode=TwoWay}"
+            <NumberBox x:Uid="ICOCA" Value="{x:Bind tayra.Icoca, Mode=TwoWay}"
                        Grid.Row="3" Grid.ColumnSpan="6"/>
-            <NumberBox Header="CO-OP" Value="{x:Bind tayra.Coop, Mode=TwoWay}"
+            <NumberBox x:Uid="COOP" Value="{x:Bind tayra.Coop, Mode=TwoWay}"
                        Grid.Row="4" Grid.ColumnSpan="6"/>
-            <Button Content="Save" Command="{x:Bind tayra.SaveCommand}"
+            <AppBarButton x:Uid="SaveCmdBtn" Icon="SaveLocal" Command="{x:Bind tayra.SaveCommand}"
                     Grid.Row="5" Grid.Column="3"/>
-            <Button Content="delete" Command="{x:Bind tayra.DeleteCommand}"
+            <AppBarButton x:Uid="DeleteCmdBtn" Icon="Delete" Command="{x:Bind tayra.DeleteCommand}"
                     Grid.Row="5" Grid.Column="4"/>
-            <Button Content="Save Changes to the Database." Command="{x:Bind tayras.SaveChangesCommand}"
+            <AppBarButton x:Uid="SaveCmdBtn2" Icon="Save" Command="{x:Bind tayras.SaveChangesCommand}"
                     Grid.Row="5" Grid.Column="5"/>
         </Grid>
         <NumberBox Grid.ColumnSpan="3" Grid.Row="3"
                    Value="{x:Bind tayras.CashTotal, Mode=OneWay}"
-                   Header="Cash"/>
+                   x:Uid="Cash"/>
         <NumberBox Grid.ColumnSpan="3" Grid.Row="4"
                    Value="{x:Bind tayras.IcocaTotal, Mode=OneWay}"
-                   Header="ICOCA"/>
+                   x:Uid="ICOCA"/>
         <NumberBox Grid.ColumnSpan="3" Grid.Row="5"
                    Value="{x:Bind tayras.CoopTotal, Mode=OneWay}"
-                   Header="CO-OP e-Money"/>
+                   x:Uid="COOP"/>
     </Grid>
 </Window>
