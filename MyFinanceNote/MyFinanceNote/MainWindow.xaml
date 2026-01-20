@@ -95,19 +95,19 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Tayra">
                     <!--<controls:DataRow>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{x:Bind Id}"/>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{x:Bind Date}"/>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{x:Bind Event}"/>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{x:Bind Cash}"/>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{x:Bind Icoca}"/>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{x:Bind Coop}"/>
-                    </controls:DataRow>-->
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{x:Bind Id}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{x:Bind Date}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{x:Bind Event}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{x:Bind Cash}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{x:Bind Icoca}"/>
+                            <TextBlock VerticalAlignment="Center"
+                                       Text="{x:Bind Coop}"/>
+                        </controls:DataRow>-->
                     <Grid Padding="16,12"
                           ColumnSpacing="16">
                         <Grid.ColumnDefinitions>
