@@ -16,6 +16,9 @@ using MyFinanceNote.Models;
 using MyFinanceNote.ViewModels;
 using System.Diagnostics;
 using CommunityToolkit.WinUI;
+using Microsoft.Windows.ApplicationModel.Resources;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -57,7 +60,19 @@ namespace MyFinanceNote
         {
             if (tayras  != null)
             {
-                await tayras.LoadAsync();
+                try
+                {
+                    await tayras.LoadAsync();
+                }
+                catch (Exception ex)
+                {
+                    ResourceLoader resourceLoader = new();
+                    AppNotification appNotification = new AppNotificationBuilder()
+                        .AddText(resourceLoader.GetString("ErrMsgRsc/Title"))
+                        .AddText(ex.Message)
+                        .BuildNotification();
+                    AppNotificationManager.Default.Show(appNotification);
+                }
             }
         }
     }

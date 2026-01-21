@@ -141,6 +141,9 @@
   <data name="DeleteCmdBtn.Label" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="ErrMsgRsc.Title" xml:space="preserve">
+    <value>An error occurred.</value>
+  </data>
   <data name="Event.Header" xml:space="preserve">
     <value>Event</value>
   </data>
@@ -158,6 +161,12 @@
   </data>
   <data name="LoadCmdBtn.Label" xml:space="preserve">
     <value>Load</value>
+  </data>
+  <data name="Reminder.Message" xml:space="preserve">
+    <value>Would you make your record of your trades today?</value>
+  </data>
+  <data name="Reminder.Title" xml:space="preserve">
+    <value>It is time to enter your finance note.</value>
   </data>
   <data name="SaveCmdBtn.Label" xml:space="preserve">
     <value>Save</value>
